@@ -1,0 +1,78 @@
+[
+{
+  "model": "courses.subject",
+  "pk": 1,
+  "fields": {
+    "created_at": "2022-08-25T04:33:44.144Z",
+    "updated_at": "2022-08-25T04:33:44.144Z",
+    "created_by": null,
+    "modified_by": null,
+    "title": "Mathematics",
+    "slug": "mathematics"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 2,
+  "fields": {
+    "created_at": "2022-08-25T04:33:56.818Z",
+    "updated_at": "2022-08-25T04:33:56.818Z",
+    "created_by": null,
+    "modified_by": null,
+    "title": "Phythics",
+    "slug": "phythics"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 3,
+  "fields": {
+    "created_at": "2022-08-25T04:34:06.085Z",
+    "updated_at": "2022-08-25T04:34:06.085Z",
+    "created_by": null,
+    "modified_by": null,
+    "title": "Biology",
+    "slug": "biology"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 4,
+  "fields": {
+    "created_at": "2022-08-25T04:34:20.104Z",
+    "updated_at": "2022-08-25T04:34:20.104Z",
+    "created_by": null,
+    "modified_by": null,
+    "title": "Programming",
+    "slug": "programming"
+  }
+},
+{
+  "model": "courses.course",
+  "pk": 1,
+  "fields": {
+    "created_at": "2022-08-25T04:35:30.298Z",
+    "updated_at": "2022-08-25T04:35:30.298Z",
+    "created_by": null,
+    "modified_by": null,
+    "owner": 1,
+    "subject": 4,
+    "title": "Algorithms and Data structures",
+    "slug": "algorithms-and-data-structures",
+    "overview": "This course about Algorithms and Data structures"
+  }
+},
+{
+  "model": "courses.module",
+  "pk": 1,
+  "fields": {
+    "created_at": "2022-08-25T04:35:30.302Z",
+    "updated_at": "2022-08-25T04:35:30.302Z",
+    "created_by": null,
+    "modified_by": null,
+    "course": 1,
+    "title": "Sorting",
+    "description": ""
+  }
+}
+]
