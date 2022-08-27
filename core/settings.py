@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third-party apps
     'rest_framework',
+    'crispy_forms',
     'drf_yasg',
     'debug_toolbar',
     # local apps
