@@ -1,8 +1,10 @@
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 from helpers.models import BaseModel, generate_unique_slug
 from common.models import User
 
-
+from .fields import OrderField
 class Subject(BaseModel):
     title = models.CharField(max_length=255, unique=True, blank=True, null=True, db_index=True)
     slug = models.SlugField(max_length=255, unique=True)
@@ -24,11 +26,11 @@ class Subject(BaseModel):
     
 
 class Course(BaseModel):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses_created')
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='courses')
     title = models.CharField(max_length=255, blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True)
     overview = models.TextField(blank=True, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='courses')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses_created')
 
     class Meta:
         ordering = ['-created_at']
@@ -50,6 +52,73 @@ class Module(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+
+    order = OrderField(blank=True, null=True, for_fields=['course'])
     
     def __str__(self):
-        return self.title
+        return f'{self.order}. {self.title}'
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Module"
+        verbose_name_plural = "Modules"
+
+
+class Content(models.Model):
+    module = models.ForeignKey(Module,
+                               related_name='contents',
+                               on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType,
+                                     on_delete=models.CASCADE,
+                                     limit_choices_to={'model__in':(
+                                     'text',
+                                     'video',
+                                     'image',
+                                     'file')})
+    object_id = models.PositiveIntegerField()
+    item = GenericForeignKey('content_type', 'object_id')
+
+    order = OrderField(blank=True, null=True, for_fields=['module'])
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Content"
+        verbose_name_plural = "Contents"
+
+
+
+class ItemBase(BaseModel):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_created')
+    title = models.CharField(max_length=255, blank=True, null=True)
+    
+    class Meta:
+        abstract = True
+
+
+class Text(ItemBase):
+    content = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.content
+
+
+class File(ItemBase):
+    file = models.FileField(upload_to='files')
+
+    def __str__(self):
+        return self.file.name
+
+
+class Image(ItemBase):
+    image = models.ImageField(upload_to='images')
+
+    def __str__(self):
+        return self.image.name
+
+
+class Video(ItemBase):
+    url = models.URLField()
+
+    def __str__(self):
+        return self.url
+
