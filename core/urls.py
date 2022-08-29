@@ -20,6 +20,7 @@ schema_view = swagger_get_schema_view(
 urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('course/', include('courses.urls', namespace='courses')),
     path('admin/', admin.site.urls),
     path('api/v1/swagger/schema/', schema_view.with_ui('swagger', cache_timeout=0), name="swagger-schema"),
     path('__debug__/', include(debug_toolbar.urls)),
