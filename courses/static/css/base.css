@@ -87,6 +87,7 @@ h1 {
     background: #333;
     color: #fff;
     font-family: 'Roboto', sans-serif;
+    text-decoration: none;
 }
 
 .contents ul {
@@ -94,6 +95,7 @@ h1 {
     margin: 0;
     padding: 0;
     width: 100%;
+    text-decoration: none;
 }
 
 .contents ul li {
@@ -101,14 +103,17 @@ h1 {
     padding: 4px 10px 10px;
     overflow: auto;
     cursor: move;
+    text-decoration: none;
 }
 
 .contents ul li.selected {
     background: #3f3f3f;
+    text-decoration: none;
 }
 
 .contents ul li:hover {
     background: #3f3f3f;
+    text-decoration: none;
 }
 
 .contents ul span {
@@ -134,6 +139,8 @@ ul.content-types li {
     margin: 10px;
     background: #efefef;
     padding: 8px 14px;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 .hidden {
