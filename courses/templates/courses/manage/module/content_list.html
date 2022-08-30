@@ -50,7 +50,7 @@ Module {{ module.order|add:1 }}: {{ module.title }}
         {% endfor %}
     </div>
     <h3>Add new content:</h3>
-    <ul class="content-types text-decoration-none">
+    <ul class="content-types">
         <li><a href="{% url 'courses:module_content_create' module.id 'text' %}">
                 Text</a></li>
         <li><a href="{% url 'courses:module_content_create' module.id 'image' %}">
