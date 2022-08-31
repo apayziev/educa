@@ -40,7 +40,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
     template_name = 'students/course/list.html'
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().prefetch_related('students')
         return qs.filter(students__in=[self.request.user])
 
 
@@ -49,7 +49,7 @@ class StudentCourseDetailView(DetailView):
     template_name = 'students/course/detail.html'
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().prefetch_related('students')
         return qs.filter(students__in=[self.request.user])
 
     def get_context_data(self, **kwargs):

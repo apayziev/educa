@@ -58,7 +58,7 @@ class Module(BaseModel):
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
-    order = OrderField(blank=True, null=True, for_fields=['course'])
+    order = OrderField(blank=True, null=True, for_fields=['course'], db_index=True)
     
     def __str__(self):
         return f'{self.order}. {self.title}'

@@ -104,7 +104,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         return Form(*args, **kwargs)
 
     def dispatch(self, request, module_id, model_name, id=None):
-        self.module = get_object_or_404(Module,
+        self.module = get_object_or_404(Module.objects.select_related('course'),
                                        id=module_id,
                                        course__owner=request.user)
         self.model = self.get_model(model_name)
@@ -153,20 +153,17 @@ class ModuleContentListView(TemplateResponseMixin, View):
     template_name = 'courses/manage/module/content_list.html'
 
     def get(self, request, module_id):
-        module = get_object_or_404(Module,
+        module = get_object_or_404(Module.objects.select_related('course'),
                                    id=module_id,
                                    course__owner=request.user)
 
         return self.render_to_response({'module': module})
 
 
-class ModuleOrderView(CsrfExemptMixin,
-                      JsonRequestResponseMixin,
-                      View):
+class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
     def post(self, request):
         for id, order in self.request_json.items():
-            Module.objects.filter(id=id,
-                   course__owner=request.user).update(order=order)
+            Module.objects.filter(id=id, course__owner=request.user).update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
 
@@ -189,7 +186,7 @@ class CourseListView(TemplateResponseMixin, View):
         subjects = Subject.objects.annotate(
             total_courses=Count('courses'))
         courses = Course.objects.annotate(
-            total_modules=Count('modules'))
+            total_modules=Count('modules')).select_related('subject','owner').prefetch_related('students')
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
             courses = courses.filter(subject=subject)
