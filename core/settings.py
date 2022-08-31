@@ -29,9 +29,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'drf_yasg',
     'debug_toolbar',
+    'embed_video',
     # local apps
     'common',
     'courses',
+    'students',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +139,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
+
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('students:student_course_list')
 
 try:
     from .local_settings import *  # noqa
