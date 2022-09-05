@@ -306,7 +306,7 @@ ul#course-modules li:hover {
     top: 64px;
     bottom: 0;
     position: fixed;
-    width: 100%;
+    width: 50%;
     overflow-y: scroll;
     padding-bottom: 150px;
 }
@@ -340,12 +340,12 @@ ul#course-modules li:hover {
     position: absolute;
     bottom: 0;
     background: #efefef;
-    width: 100%;
+    width: 50%;
     padding-top: 20px;
 }
 
 #chat-input input {
-    width: 96%;
+    width: 46%;
     position: left;
     float: left;
     display: inline;

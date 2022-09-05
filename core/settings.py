@@ -30,18 +30,20 @@ INSTALLED_APPS = [
     'drf_yasg',
     'debug_toolbar',
     'embed_video',
+    'channels',
     # local apps
     'common',
     'courses',
     'students',
+    'chat',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -145,6 +147,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('students:student_course_list')
+
+ASGI_APPLICATION = 'core.routing.application'
 
 
 try:

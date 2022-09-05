@@ -25,6 +25,7 @@ urlpatterns = [
     path('course/', include('courses.urls', namespace='courses')),
     path('', CourseListView.as_view(), name='course_list'),
     path('students/', include('students.urls', namespace='students')),
+    path('chat/', include('chat.urls', namespace='chat')),
     path('admin/', admin.site.urls),
     path('api/v1/swagger/schema/', schema_view.with_ui('swagger', cache_timeout=0), name="swagger-schema"),
     path('__debug__/', include(debug_toolbar.urls)),
